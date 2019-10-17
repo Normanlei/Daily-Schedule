@@ -1,48 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-      crossorigin="anonymous"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <title>Work Day Scheduler</title>
-  </head>
 
-  <body>
-    <header class="jumbotron">
-      <h1 class="display-3">Work Day Scheduler</h1>
-      <p class="lead">A simple calendar app for scheduling your work day</p>
-      <p id="currentDay" class="lead"></p>
-    </header>
-    <div class="container">
-      <form class="form-inline">
-        <div class="form-group mb-2">
-          <label for="staticEmail2" class="sr-only">Email</label>
-          <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="email@example.com">
-        </div>
-        <div class="form-group mx-sm-3 mb-2">
-          <label for="inputPassword2" class="sr-only">Password</label>
-          <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
-        </div>
-        <button type="submit" class="btn btn-primary mb-2">Confirm identity</button>
-      </form>
-    </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Work Day Scheduler</title>
+</head>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-  </body>
+<body>
+  <!--Header-Sectiom-->
+  <header class="jumbotron">
+    <h1 class="display-3">Work Day Scheduler</h1>
+    <p class="lead">A simple calendar app for scheduling your work day</p>
+    <p id="currentDay" class="lead"></p>
+  </header>
+
+  <!--Body-Section-->
+
+  <div class="container">
+    <table class="table table-striped table-light table-hover">
+      <tbody>
+        <tr id="8">
+          <td class="time-block hour" value="8">8 AM</td>
+          <td class="row">
+            <textarea type="event" class="description"></textarea>
+            <button type="save" class="btn saveBtn">Save</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+
+  </div>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="scheduler.js"></script>
+</body>
+
 </html>
+
+
+
+<!-- <form class="form-inline row">
+      <div class="form-group col-1 p-0" style="height: 100%;">
+        <h4 class="time">9 AM</h4>
+      </div>
+      <div class="form-group col-10 p-0" style="height: 100%;">
+        <label for="inputPassword2" class="sr-only">Password</label>
+        <textarea type="event" class="form-control" style="width:100%; height: 100%;" placeholder=""></textarea>
+      </div>
+      <div class="form-group col-1 p-0" style="height: 100%;">
+        <button type="save" class="btn btn-primary">Save</button>
+      </div>
+    </form> -->
+
+<!-- <tr>
+        <th class="time-block">6 AM</th>
+        <td class="text-center border-right p-0">
+          <textarea type="event" class="form-control description" style="width:100%; height: 100%;"></textarea>
+        </td>
+        <td class="text-center border-left">
+          <button type="save" class="btn btn-primary btn-block">Save</button>
+        </td>
+      </tr> -->
+
+<!-- <thead class="thead-light">
+        <tr>
+          <th class="text-center border-right" width="10%" scope="col">Time</th>
+          <th class="text-center border-right bg-success" width="80%" scope="col">Event</th>
+          <th class="text-center border-left bg-primary" width="10%" scope="col">Save</th>
+        </tr>
+      </thead> -->
