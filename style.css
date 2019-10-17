@@ -76,3 +76,23 @@ textarea{
   font-size: 20px;
   transition: all .3s ease-in-out;
 }
+
+
+@media screen and (max-width: 800px) {
+  .row{
+    height: 120px;
+  }
+  .description{
+    white-space: pre-wrap;
+    width: 100% !important;
+    height: 70% !important;
+  }
+  .saveBtn {
+    border-left: 1px solid black;
+    border-radius: 0;
+    background-color: #06AED5;
+    color: white;
+    width: 100% !important;
+    height: 30% !important;
+  }
+}
