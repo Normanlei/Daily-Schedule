@@ -58,20 +58,35 @@ $(document).ready(function () {
 
     function updateStatus() {
         var currentHour = moment().format('k');
-        if (currentHour==24) currentHour=0; 
+        if (currentHour==24) {
+            currentHour=0;
+            clearSchdule();
+        }
         //another date
-        //console.log(currentHour);
+        console.log(currentHour);
         for (var i = 8; i <= 20; i++) {
             if (i < currentHour) {
+                $("#" + i + " .row .description").removeClass("present");
+                $("#" + i + " .row .description").removeClass("future");
                 $("#" + i + " .row .description").addClass("past");
-            } else if (i === currentHour) {
+            } else if (i == currentHour) {
+                $("#" + i + " .row .description").removeClass("past");
+                $("#" + i + " .row .description").removeClass("future");
                 $("#" + i + " .row .description").addClass("present");
             } else {
+                $("#" + i + " .row .description").removeClass("present");
+                $("#" + i + " .row .description").removeClass("past");
                 $("#" + i + " .row .description").addClass("future");
             }
         }
     }
     updateStatus();
     setInterval(updateStatus, 60000);
+
+
+    // clear the calendar when next date
+    function clearSchdule(){
+        localStorage.clear();
+    }
 
 });
