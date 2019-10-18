@@ -1,7 +1,7 @@
 $(document).ready(function () {
     //show current time
     function showTime() {
-        $("#currentDay").html((moment().format('MMMM Do YYYY')) + "<br><br>" + (moment().format('h:mm:ss a')));
+        $("#currentDay").html((moment().format('MMMM Do YYYY')) + "<br><br>" + (moment().format('hh:mm:ss a')));
     }
     setInterval(showTime, 1000);
 
@@ -20,7 +20,7 @@ $(document).ready(function () {
 
             //apend textarea and saveBtn row
             var textarea = "<textarea type='event' class='description'></textarea>";
-            var saveBtn = "<button type='save' class='btn saveBtn'>Save</button>";
+            var saveBtn = "<button type='save' class='btn saveBtn'><i class='fas fa-lock'></i></button>";
             tempRow.append("<td class='row'>" + textarea + saveBtn + "</td>");
         }
     }
@@ -44,22 +44,28 @@ $(document).ready(function () {
 
     //save to localStorage
     $(".saveBtn").on("click", saveData);
-
     function saveData() {
         event.preventDefault();
-        //console.log(event.target.parentElement.parentElement.id);
-        var tempEvent = event.target.previousElementSibling.value;
-        var time = event.target.parentElement.parentElement.id;
-        if (tempEvent.length > 0) {
-            data[time] = tempEvent;
+        //console.log(event.target.matches("i"));
+        //when the button is clicked 
+        if (event.target.matches("button")) {
+            var tempEvent = event.target.previousElementSibling.value;
+            var time = event.target.parentElement.parentElement.id;
+        } 
+        //when the only icon is clicked
+        else if (event.target.matches("i")) {
+            var tempEvent = event.target.parentElement.previousElementSibling.value;
+            var time = event.target.parentElement.parentElement.parentElement.id;
         }
+        data[time] = tempEvent;
+
         localStorage.setItem("schedule", JSON.stringify(data));
     }
 
     function updateStatus() {
         var currentHour = moment().format('k');
-        if (currentHour==24) {
-            currentHour=0;
+        if (currentHour == 24) {
+            currentHour = 0;
             clearSchdule();
         }
         //another date
@@ -85,7 +91,7 @@ $(document).ready(function () {
 
 
     // clear the calendar when next date
-    function clearSchdule(){
+    function clearSchdule() {
         localStorage.clear();
     }
 
