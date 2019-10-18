@@ -24,8 +24,12 @@ In the process of building this calendar, I have learned:
 * Realize using Bootstrap tags to build the main structure of the site is much more consice and easier
 * Familiarize using jQuery to add more functional features along with html and css styling
 * Using jQuery to add content to html more efficiently
-* Using icon from FontAwesome site
+* Using icon from FontAwesome site (https://fontawesome.com/icons?from=io)
 * Familiarize using localStorage to persist data
+* Familiarize using media query to make my site to be responsive 
+![video](./img/responsive.gif)
+
+
 
 ## Credits 
 
