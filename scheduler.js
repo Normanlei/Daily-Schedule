@@ -31,7 +31,6 @@ $(document).ready(function () {
     var storageData = JSON.parse(localStorage.getItem("schedule"));
     if (storageData !== null) data = storageData;
     else localStorage.setItem("schedule", JSON.stringify(data));
-    //console.log(data);
 
     function showData() {
         $.each(data, function (key, value) {
@@ -39,7 +38,6 @@ $(document).ready(function () {
         });
     }
     showData();
-
 
 
     //save to localStorage
@@ -51,7 +49,7 @@ $(document).ready(function () {
         if (event.target.matches("button")) {
             var tempEvent = event.target.previousElementSibling.value;
             var time = event.target.parentElement.parentElement.id;
-        } 
+        }
         //when the only icon is clicked
         else if (event.target.matches("i")) {
             var tempEvent = event.target.parentElement.previousElementSibling.value;
@@ -64,12 +62,15 @@ $(document).ready(function () {
 
     function updateStatus() {
         var currentHour = moment().format('k');
+        var currentMin = moment().format('m');
+        var currentSec = moment().format('s');
         if (currentHour == 24) {
             currentHour = 0;
-            clearSchdule();
+            if (currentMin == 0 && currentSec == 0) //make sure clearSchedule function only trigger once
+                clearSchdule();
         }
         //another date
-        console.log(currentHour);
+        //console.log(currentHour);
         for (var i = 8; i <= 20; i++) {
             if (i < currentHour) {
                 $("#" + i + " .row .description").removeClass("present");
@@ -86,8 +87,8 @@ $(document).ready(function () {
             }
         }
     }
-    updateStatus();
-    setInterval(updateStatus, 60000);
+    //updateStatus();
+    setInterval(updateStatus, 1000);
 
 
     // clear the calendar when next date
@@ -95,4 +96,27 @@ $(document).ready(function () {
         localStorage.clear();
     }
 
+    var alarmSound = new Audio();
+    alarmSound.src = "./Sounds/Alert/Alert-01.mp3";
+    alarmSound.muted = "muted";
+        alarmSound.play();
 });
+
+// // set Alarm
+// setTimeout(iniAlarm,5000);
+// function iniAlarm() {
+//     //var currentTime = moment().format('k'); //string
+//     var currentTime = 10;
+//     //console.log($("#20 .row .description").val());
+//     var alarmTrigger = $("#" + currentTime + " .row .description").val();
+//     console.log(alarmTrigger.length);
+//     if (alarmTrigger !== undefined && alarmTrigger.length > 0) {
+//         //$("#alarmSound").trigger('load');
+//         $("#alarmSound").trigger('load');
+//         triggerAlarm();
+//     }
+// }
+// //setInterval(iniAlarm,1000);
+// function triggerAlarm() {
+//     $("#alarmSound").trigger('play');
+// }

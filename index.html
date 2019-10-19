@@ -19,7 +19,16 @@
     <h1 class="display-3">Work Day Scheduler</h1>
     <p class="lead">A simple calendar app for scheduling your work day</p>
     <p id="currentDay" class="lead"></p>
-    <h5>Color Representations:<span id="past">Past</span>&nbsp&nbsp&nbsp<span id="present">Present</span>&nbsp&nbsp&nbsp<span id="future">Future</span></h5>
+    <h5>Color Representations:<span id="past">Past</span>&nbsp&nbsp&nbsp<span
+        id="present">Present</span>&nbsp&nbsp&nbsp<span id="future">Future</span>
+    </h5>
+    <br>
+    <div id="alarm">
+      <button type="button" class="btn btn-danger">Enable Alarm</button>
+      
+    </div>
+
+
   </header>
 
   <!--Body-Section-->
@@ -36,9 +45,11 @@
         </tr>
       </tbody>
     </table>
-
-
   </div>
+  <!-- <audio id="alarmSound">
+    <source src="Sounds/Alert/Alert-01.mp3" type="audio/mpeg">
+  </audio> -->
+
   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
@@ -48,7 +59,7 @@
 </html>
 
 
-
+<!-- previous works: -->
 <!-- <form class="form-inline row">
       <div class="form-group col-1 p-0" style="height: 100%;">
         <h4 class="time">9 AM</h4>
