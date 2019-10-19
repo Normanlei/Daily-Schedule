@@ -29,6 +29,10 @@ In the process of building this calendar, I have learned:
 * Familiarize using media query to make my site to be responsive 
 ![video](./img/responsive.gif)
 
+* Setting an alarm as a reminder as long as having event going on in current hour, along with snooze and stop alarm functionalities.
+![video](./img/alarm.gif)
+
+* Realizing Chrome has autoplay policy preventing media to auto play by itself, so we always need an event to trigger the media instead. (https://developers.google.com/web/updates/2017/09/autoplay-policy-changes)
 
 
 ## Credits 
@@ -37,6 +41,8 @@ I am here to acknowlage to the Coding Bootcamp of University of Washington along
 * Jason Rosen (Instructor)
 * Daniel Mont-Eton (TA)
 * Kris Shore (TA)
+* SFX Audio Resources (https://github.com/arnofaure/free-sfx)
+
 
 ## License
 MIT License
