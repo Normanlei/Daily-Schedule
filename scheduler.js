@@ -96,27 +96,47 @@ $(document).ready(function () {
         localStorage.clear();
     }
 
+
+    // set Alarm
     var alarmSound = new Audio();
     alarmSound.src = "./Sounds/Alert/Alert-01.mp3";
-    alarmSound.muted = "muted";
+
+    $("#enable").on('click', iniAlarm);
+    $("#snooze").on('click', snoozeAlarm);
+    $("#stop").on('click', stopAlarm);
+    
+    function iniAlarm() {
+        var currentTime = moment().format('k'); //string
+        //var currentTime = 10;
+        //console.log($("#20 .row .description").val());
+        var alarmTrigger = $("#" + currentTime + " .row .description").val();
+        console.log(alarmTrigger.length);
+        if (alarmTrigger !== undefined && alarmTrigger.length > 0) {
+            playSound();
+            $(".alarmControl").css("display", "inline-block");
+            $("#enable").css("display", "none");
+            $("#ps").css("display", "none");
+        }
+    }
+
+    function playSound() {
         alarmSound.play();
+        alarmSound.loop = true;
+    }
+
+    function snoozeAlarm() {
+        alarmSound.pause();
+        alarmSound.currentTime = 0;
+        setTimeout(iniAlarm, 300000); //snooze in 5min
+    }
+
+    function stopAlarm() {
+        alarmSound.pause();
+        alarmSound.currentTime = 0;
+        $(".alarmControl").css("display", "none");
+        $("#enable").css("display", "inline-block");
+        $("#ps").css("display", "");
+    }
+
 });
 
-// // set Alarm
-// setTimeout(iniAlarm,5000);
-// function iniAlarm() {
-//     //var currentTime = moment().format('k'); //string
-//     var currentTime = 10;
-//     //console.log($("#20 .row .description").val());
-//     var alarmTrigger = $("#" + currentTime + " .row .description").val();
-//     console.log(alarmTrigger.length);
-//     if (alarmTrigger !== undefined && alarmTrigger.length > 0) {
-//         //$("#alarmSound").trigger('load');
-//         $("#alarmSound").trigger('load');
-//         triggerAlarm();
-//     }
-// }
-// //setInterval(iniAlarm,1000);
-// function triggerAlarm() {
-//     $("#alarmSound").trigger('play');
-// }
