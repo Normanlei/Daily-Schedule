@@ -5,10 +5,16 @@ $(document).ready(function () {
     //show current time
     function showTime() {
         $("#currentDay").html((moment().format('MMMM Do YYYY')) + "<br><br>" + (moment().format('hh:mm:ss a')));
-        // trigger updateStatus function every hour
+        // trigger updateStatus function every hour and clear localStore everyday
         var currentMin = moment().format('m');
-        var currentSec = moment().format('s');    
-        if (currentMin == 0 && currentSec == 0) {
+        var currentSec = moment().format('s'); 
+        var currentHour = moment().format('H');
+        if (currentHour==24 && currentMin == 0 && currentSec == 0) {
+            updateStatus();
+            clearSchedule();
+            showData();
+        }      
+        else if (currentMin == 0 && currentSec == 0) {
             updateStatus();
         }
     }
@@ -78,8 +84,6 @@ $(document).ready(function () {
         var currentHour = moment().format('H');
         if (currentHour == 24) {
             currentHour = 0;
-            if (currentMin == 0 && currentSec == 0) //make sure clearSchedule function only trigger once
-                clearSchdule();
         }
         //another date
         //console.log(currentHour);
@@ -103,7 +107,7 @@ $(document).ready(function () {
 
 
     // clear the calendar when next date
-    function clearSchdule() {
+    function clearSchedule() {
         localStorage.clear();
     }
 
