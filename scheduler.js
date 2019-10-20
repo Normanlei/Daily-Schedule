@@ -1,7 +1,21 @@
 $(document).ready(function () {
+    //Variable define
+    var currentYear = moment().format('YYYY');
+    var currentMonth = moment().format('M');
+    var currentDay = moment().format('D');
+    var currentHour = moment().format('H');
+    var currentMin = moment().format('m');
+    var currentSec = moment().format('s');
+    var loadAlarm;
+
+
     //show current time
     function showTime() {
         $("#currentDay").html((moment().format('MMMM Do YYYY')) + "<br><br>" + (moment().format('hh:mm:ss a')));
+        // trigger updateStatus function every hour
+        if (currentMin == 0 && currentSec == 0) {
+            updateStatus();
+        }
     }
     setInterval(showTime, 1000);
 
@@ -13,7 +27,8 @@ $(document).ready(function () {
             var tempRow = $("<tr id='" + i + "'>");
             $("tbody").append(tempRow);
             var timeStr;
-            if (i <= 12) timeStr = i + " " + "AM";
+            if (i < 12) timeStr = i + " " + "AM";
+            else if (i == 12) timeStr = i + " " + "PM";
             else timeStr = (i - 12) + " " + "PM";
             //append time block
             tempRow.append("<td class='time-block hour' value='" + i + "'>" + timeStr + "</td>");
@@ -22,6 +37,10 @@ $(document).ready(function () {
             var textarea = "<textarea type='event' class='description'></textarea>";
             var saveBtn = "<button type='save' class='btn saveBtn'><i class='fas fa-lock'></i></button>";
             tempRow.append("<td class='row'>" + textarea + saveBtn + "</td>");
+
+            //build time-options 
+            var tempOption = "<option value='" + i + "'>" + timeStr + "</option>";
+            $("#time-options").append(tempOption);
         }
     }
     buildRow();
@@ -61,9 +80,6 @@ $(document).ready(function () {
     }
 
     function updateStatus() {
-        var currentHour = moment().format('k');
-        var currentMin = moment().format('m');
-        var currentSec = moment().format('s');
         if (currentHour == 24) {
             currentHour = 0;
             if (currentMin == 0 && currentSec == 0) //make sure clearSchedule function only trigger once
@@ -87,8 +103,7 @@ $(document).ready(function () {
             }
         }
     }
-    //updateStatus();
-    setInterval(updateStatus, 1000);
+    updateStatus();
 
 
     // clear the calendar when next date
@@ -101,42 +116,72 @@ $(document).ready(function () {
     var alarmSound = new Audio();
     alarmSound.src = "./Sounds/Alert/Alert-01.mp3";
 
+
+
     $("#enable").on('click', iniAlarm);
+    $("#unable").on('click', cancelAlarm);
     $("#snooze").on('click', snoozeAlarm);
     $("#stop").on('click', stopAlarm);
-    
+
     function iniAlarm() {
-        var currentTime = moment().format('k'); //string
         //var currentTime = 10;
-        //console.log($("#20 .row .description").val());
-        var alarmTrigger = $("#" + currentTime + " .row .description").val();
-        console.log(alarmTrigger.length);
-        if (alarmTrigger !== undefined && alarmTrigger.length > 0) {
-            playSound();
-            $(".alarmControl").css("display", "inline-block");
-            $("#enable").css("display", "none");
-            $("#ps").css("display", "none");
+        var alarmHour = parseInt($("#time-options").val());
+        var alarmTime = parseInt((new Date(currentYear, currentMonth - 1, currentDay, alarmHour)).getTime());
+        console.log(alarmTime);
+        var currentTime = parseInt((new Date()).getTime());
+
+        if (currentTime >= alarmTime) {
+            alert("The alarm you set has passed!!!");
+            return;
         }
+        else {
+            var alarmTrigger = $("#" + alarmHour + " .row .description").val();
+            //console.log(alarmTrigger.length);
+            if (alarmTrigger !== undefined && alarmTrigger.length > 0) {
+                loadAlarm = setTimeout(triAlarm, (alarmTime-currentTime));
+            }else {
+                var flag = confirm("There is no event at this hour, are you sure to set an alarm?");
+                if (flag) {
+                    loadAlarm = setTimeout(triAlarm, (alarmTime-currentTime));
+                }
+            }
+        }
+        $("#enable").css("display","none");
+        $("#unable").css("display","inline-block");
     }
 
-    function playSound() {
+    function cancelAlarm(){
+        clearTimeout(loadAlarm);
+        stopAlarm();
+        $("#unable").css("display","none");
+        $("#enable").css("display","inline-block");
+    }
+
+    function triAlarm() {
         alarmSound.play();
         alarmSound.loop = true;
+        $(".alarmSelect").css("display", "none");
+        $(".alarmControl").css("display", "inline-block");
+        $("#ps").css("display", "none");
     }
 
     function snoozeAlarm() {
         alarmSound.pause();
         alarmSound.currentTime = 0;
-        setTimeout(iniAlarm, 300000); //snooze in 5min
+        $(".alarmControl").css("display", "none");
+        $(".alarmSelect").css("display", "inline-block");
+        $("#ps").css("display", "");
+        setTimeout(triAlarm, 5000); //snooze in 5min
     }
 
     function stopAlarm() {
         alarmSound.pause();
         alarmSound.currentTime = 0;
         $(".alarmControl").css("display", "none");
-        $("#enable").css("display", "inline-block");
+        $(".alarmSelect").css("display", "inline-block");
         $("#ps").css("display", "");
+        $("#unable").css("display","none");
+        $("#enable").css("display","inline-block");
     }
-
 });
 

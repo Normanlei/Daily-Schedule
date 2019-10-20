@@ -23,14 +23,23 @@
         id="present">Present</span>&nbsp&nbsp&nbsp<span id="future">Future</span>
     </h5>
     <br>
+
+    <!--alarm section-->
     <div class="alarm mb-3">
-      <button type="button" class="btn btn-danger" id="enable">Enable Alarm</button>
+      <span class="alarmSelect">
+        <select id="time-options">
+            <option value="-1">None</option>
+          <option value="8">8AM</option>
+        </select>
+        <button type="button" class="btn btn-secondary btn-sm ml-4" id="enable">Set Alarm</button>
+        <button type="button" class="btn btn-secondary btn-sm ml-4" id="unable" style="display: none;">Cancel Alarm</button>
+      </span>
       <span class="alarmControl" style="display: none;">
         <button type="button" class="btn btn-warning" id="snooze">Snooze 5mins</button>
         <button type="button" class="btn btn-warning" id="stop">Stop Alarm</button>
       </span>
     </div>
-    <p id="ps">PS: Enable Alarm! Don't just rely on your memory!</p>
+    <p id="ps">PS: Set Alarm! Don't just rely on your memory!</p>
   </header>
 
   <!--Body-Section-->
