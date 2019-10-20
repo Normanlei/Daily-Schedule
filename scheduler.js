@@ -125,8 +125,9 @@ $(document).ready(function () {
         var currentDay = moment().format('D');
         //var currentTime = 10;
         var alarmHour = parseInt($("#time-options").val());
+        localStorage.setItem("alarm", alarmHour);
         var alarmTime = parseInt((new Date(currentYear, currentMonth - 1, currentDay, alarmHour)).getTime());
-        console.log(alarmTime);
+        //console.log(alarmTime);
         var currentTime = parseInt((new Date()).getTime());
 
         if (currentTime >= alarmTime) {
@@ -152,6 +153,7 @@ $(document).ready(function () {
     function cancelAlarm(){
         clearTimeout(loadAlarm);
         stopAlarm();
+        localStorage.removeItem("alarm");
         $("#unable").css("display","none");
         $("#enable").css("display","inline-block");
     }
@@ -181,6 +183,15 @@ $(document).ready(function () {
         $("#ps").css("display", "");
         $("#unable").css("display","none");
         $("#enable").css("display","inline-block");
+    }
+    recoverAlarm();
+    function recoverAlarm(){
+        var preAlarm = localStorage.getItem("alarm");
+        if (!isNaN(preAlarm) && preAlarm!==null){
+        console.log(preAlarm);
+        $("#time-options").val(preAlarm);
+        iniAlarm();
+        }
     }
 });
 
