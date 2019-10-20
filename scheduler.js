@@ -1,18 +1,13 @@
 $(document).ready(function () {
     //Variable define
-    var currentYear = moment().format('YYYY');
-    var currentMonth = moment().format('M');
-    var currentDay = moment().format('D');
-    var currentHour = moment().format('H');
-    var currentMin = moment().format('m');
-    var currentSec = moment().format('s');
     var loadAlarm;
-
 
     //show current time
     function showTime() {
         $("#currentDay").html((moment().format('MMMM Do YYYY')) + "<br><br>" + (moment().format('hh:mm:ss a')));
         // trigger updateStatus function every hour
+        var currentMin = moment().format('m');
+        var currentSec = moment().format('s');    
         if (currentMin == 0 && currentSec == 0) {
             updateStatus();
         }
@@ -80,6 +75,7 @@ $(document).ready(function () {
     }
 
     function updateStatus() {
+        var currentHour = moment().format('H');
         if (currentHour == 24) {
             currentHour = 0;
             if (currentMin == 0 && currentSec == 0) //make sure clearSchedule function only trigger once
@@ -124,6 +120,9 @@ $(document).ready(function () {
     $("#stop").on('click', stopAlarm);
 
     function iniAlarm() {
+        var currentYear = moment().format('YYYY');
+        var currentMonth = moment().format('M');
+        var currentDay = moment().format('D');
         //var currentTime = 10;
         var alarmHour = parseInt($("#time-options").val());
         var alarmTime = parseInt((new Date(currentYear, currentMonth - 1, currentDay, alarmHour)).getTime());
